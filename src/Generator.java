@@ -1,5 +1,6 @@
 import com.opencsv.CSVReader;
 import models.Client;
+import models.Employee;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -14,6 +15,26 @@ import java.util.StringJoiner;
 public class Generator
 {
   public static char DELIMETER = '|';
+
+  public static List<Employee> readEmployees()
+  {
+    List<Employee> employees = new ArrayList<>();
+    String path = "./lib/employees.csv";
+
+    List<String[]> lines = readCsv(path);
+
+    for(String[] line : lines)
+    {
+      long employeeId = Long.parseLong(line[0]);
+      String firstName = line[1];
+      String lastName = line[2];
+      String address = line[3];
+
+      employees.add(new Employee(employeeId, firstName, lastName, address));
+    }
+
+    return employees;
+  }
 
   public static List<Client> readClients()
   {
@@ -58,6 +79,12 @@ public class Generator
     for(Client client : clients)
     {
       System.out.println(client);
+    }
+
+    List<Employee> employees = readEmployees();
+    for(Employee employee : employees)
+    {
+      System.out.println(employee);
     }
   }
 }
