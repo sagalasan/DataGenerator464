@@ -1,5 +1,6 @@
 import models.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,6 +14,9 @@ public class Generator
   private List<Model> items;
   private List<Model> categories;
 
+  private List<Model> updates;
+  private List<Model> transactions;
+
   public void generate()
   {
     CsvUtiltiy.refresh();
@@ -22,6 +26,9 @@ public class Generator
     groups = CsvUtiltiy.readGroups();
     items = CsvUtiltiy.readItems();
     categories = CsvUtiltiy.readCategories();
+
+    updates = new ArrayList<>();
+    transactions = new ArrayList<>();
 
     write();
   }
@@ -33,6 +40,8 @@ public class Generator
     CsvUtiltiy.writeCsv(groups, Group.NAME, Group.HEADER);
     CsvUtiltiy.writeCsv(items, Item.NAME, Item.HEADER);
     CsvUtiltiy.writeCsv(categories, Category.NAME, Category.HEADER);
+    CsvUtiltiy.writeCsv(updates, Update.NAME, Update.HEADER);
+    CsvUtiltiy.writeCsv(transactions, Transaction.NAME, Transaction.HEADER);
   }
 
   public static void main(String[] args)
