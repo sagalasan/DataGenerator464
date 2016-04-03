@@ -4,6 +4,7 @@ import models.Employee;
 import models.Group;
 import models.Item;
 
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -14,11 +15,31 @@ import java.util.List;
  */
 public class CsvUtiltiy
 {
+  public static String DIR_OUT = "csv-out";
   public static char DELIMETER = '|';
 
   public static void refresh()
   {
+    File dir = new File("./" + DIR_OUT);
+    if(dir.isDirectory())
+    {
+      deleteDir(dir);
+    }
+    dir.mkdir();
+  }
 
+  public static boolean deleteDir(File dir)
+  {
+    if(dir.isDirectory())
+    {
+      String[] children = dir.list();
+      for(int i = 0; i < children.length; i++)
+      {
+        boolean success = deleteDir(new File(dir, children[i]));
+        if(!success) return false;
+      }
+    }
+    return dir.delete();
   }
 
   public static List<Employee> readEmployees()

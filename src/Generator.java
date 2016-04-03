@@ -10,6 +10,6 @@ public class Generator
 
   public static void generate()
   {
-
+    CsvUtiltiy.refresh();
   }
 }
