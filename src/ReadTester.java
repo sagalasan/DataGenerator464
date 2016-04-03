@@ -1,20 +1,14 @@
-import com.opencsv.CSVReader;
 import models.Client;
 import models.Employee;
 import models.Group;
 import models.Item;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.StringJoiner;
 
 /**
  * Created by christiaan on 3/27/16.
  */
-public class Generator
+public class ReadTester
 {
   public static void main(String[] args)
   {
