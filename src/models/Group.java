@@ -5,6 +5,8 @@ package models;
  */
 public class Group
 {
+  public static final String HEADER = "name|description";
+
   private String name;
   private String description;
 

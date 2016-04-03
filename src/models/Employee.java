@@ -5,6 +5,8 @@ package models;
  */
 public class Employee
 {
+  public static final String HEADER = "employee_id|first_name|last_name|address";
+
   private long employeedId;
   private String firstName;
   private String lastName;

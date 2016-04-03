@@ -5,6 +5,8 @@ package models;
  */
 public class Item
 {
+  public static final String HEADER = "item_id|name|description|price";
+
   private long itemId;
   private String name;
   private String description;

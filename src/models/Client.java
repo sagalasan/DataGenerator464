@@ -5,6 +5,8 @@ package models;
  */
 public class Client
 {
+  public static final String HEADER = "client_id|name|address";
+
   private long clientId;
   private String name;
   private String address;
