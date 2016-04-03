@@ -3,7 +3,7 @@ package models;
 /**
  * Created by christiaan on 3/27/16.
  */
-public class Employee
+public class Employee extends Model
 {
   public static final String HEADER = "employee_id|first_name|last_name|address";
   public static final String NAME = "employees.csv";
@@ -45,5 +45,24 @@ public class Employee
   public String toString()
   {
     return employeedId + "|" + firstName + "|" + lastName + "|" + address;
+  }
+
+  @Override
+  public String getFileName()
+  {
+    return NAME;
+  }
+
+  @Override
+  public String getHeader()
+  {
+    return HEADER;
+  }
+
+  @Override
+  public String[] getArray()
+  {
+    String[] array = {String.valueOf(employeedId), firstName, lastName, address};
+    return array;
   }
 }

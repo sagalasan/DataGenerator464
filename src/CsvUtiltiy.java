@@ -1,11 +1,10 @@
 import com.opencsv.CSVReader;
-import models.Client;
-import models.Employee;
-import models.Group;
-import models.Item;
+import com.opencsv.CSVWriter;
+import models.*;
 
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,17 +14,37 @@ import java.util.List;
  */
 public class CsvUtiltiy
 {
-  public static String DIR_OUT = "csv-out";
+  public static String DIR_OUT = "./csv-out";
   public static char DELIMETER = '|';
 
   public static void refresh()
   {
-    File dir = new File("./" + DIR_OUT);
+    File dir = new File(DIR_OUT);
     if(dir.isDirectory())
     {
       deleteDir(dir);
     }
     dir.mkdir();
+  }
+
+  public static void writeCsv(List<Model> models, String fileName, String header)
+  {
+    CSVWriter writer;
+    String[] headerArray = header.split("\\" + String.valueOf(DELIMETER));
+    try
+    {
+      writer = new CSVWriter(new FileWriter(DIR_OUT + "/" + fileName), DELIMETER);
+      writer.writeNext(headerArray, false);
+      for(Model model : models)
+      {
+        writer.writeNext(model.getArray(), false);
+      }
+      writer.close();
+    }
+    catch (IOException e)
+    {
+      e.printStackTrace();
+    }
   }
 
   public static boolean deleteDir(File dir)
@@ -42,9 +61,9 @@ public class CsvUtiltiy
     return dir.delete();
   }
 
-  public static List<Employee> readEmployees()
+  public static List<Model> readEmployees()
   {
-    List<Employee> employees = new ArrayList<>();
+    List<Model> employees = new ArrayList<>();
     String path = "./lib/employees.csv";
 
     List<String[]> lines = readCsv(path);
@@ -62,9 +81,9 @@ public class CsvUtiltiy
     return employees;
   }
 
-  public static List<Client> readClients()
+  public static List<Model> readClients()
   {
-    List<Client> clients = new ArrayList<>();
+    List<Model> clients = new ArrayList<>();
     String path = "./lib/clients.csv";
 
     List<String[]> strings = readCsv(path);
@@ -81,9 +100,9 @@ public class CsvUtiltiy
     return clients;
   }
 
-  public static List<Group> readGroups()
+  public static List<Model> readGroups()
   {
-    List<Group> groups = new ArrayList<>();
+    List<Model> groups = new ArrayList<>();
     String path = "./lib/groups.csv";
 
     List<String[]> strings = readCsv(path);
@@ -99,9 +118,9 @@ public class CsvUtiltiy
     return groups;
   }
 
-  public static List<Item> readItems()
+  public static List<Model> readItems()
   {
-    List<Item> items = new ArrayList<>();
+    List<Model> items = new ArrayList<>();
     String path = "./lib/items.csv";
 
     List<String[]> strings = readCsv(path);
@@ -117,6 +136,23 @@ public class CsvUtiltiy
     }
 
     return items;
+  }
+
+  public static List<Model> readCategories()
+  {
+    List<Model> categories = new ArrayList<>();
+    String path = "./lib/categories.csv";
+
+    List<String[]> strings = readCsv(path);
+
+    for(String[] array : strings)
+    {
+      String groupName = array[0];
+      long itemId = Integer.parseInt(array[1]);
+
+      categories.add(new Category(groupName, itemId));
+    }
+    return categories;
   }
 
   public static List<String[]> readCsv(String path)
