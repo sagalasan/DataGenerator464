@@ -1,6 +1,8 @@
 import com.opencsv.CSVReader;
 import models.Client;
 import models.Employee;
+import models.Group;
+import models.Item;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -55,6 +57,44 @@ public class Generator
     return clients;
   }
 
+  public static List<Group> readGroups()
+  {
+    List<Group> groups = new ArrayList<>();
+    String path = "./lib/groups.csv";
+
+    List<String[]> strings = readCsv(path);
+
+    for(String[] array : strings)
+    {
+      String name = array[0];
+      String description = array[1];
+
+      groups.add(new Group(name, description));
+    }
+
+    return groups;
+  }
+
+  public static List<Item> readItems()
+  {
+    List<Item> items = new ArrayList<>();
+    String path = "./lib/items.csv";
+
+    List<String[]> strings = readCsv(path);
+
+    for(String[] array : strings)
+    {
+      long itemId = Long.parseLong(array[0]);
+      String name = array[1];
+      String description = array[2];
+      float price = Float.parseFloat(array[3]);
+
+      items.add(new Item(itemId, name, description, price));
+    }
+
+    return items;
+  }
+
   public static List<String[]> readCsv(String path)
   {
     CSVReader reader;
@@ -85,6 +125,18 @@ public class Generator
     for(Employee employee : employees)
     {
       System.out.println(employee);
+    }
+
+    List<Group> groups = readGroups();
+    for(Group group : groups)
+    {
+      System.out.println(group);
+    }
+
+    List<Item> items = readItems();
+    for(Item item : items)
+    {
+      System.out.println(item);
     }
   }
 }
