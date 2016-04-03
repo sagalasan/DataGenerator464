@@ -3,6 +3,8 @@
 
 target/**/*
 
+/csv-out/
+
 .idea/
 
 .gradle/
