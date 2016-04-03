@@ -6,6 +6,7 @@ package models;
 public class Employee
 {
   public static final String HEADER = "employee_id|first_name|last_name|address";
+  public static final String NAME = "employees.csv";
 
   private long employeedId;
   private String firstName;
@@ -43,6 +44,6 @@ public class Employee
   @Override
   public String toString()
   {
-    return "Employee: " + firstName + " " + lastName + ", " + address + " (" + employeedId + ")";
+    return employeedId + "|" + firstName + "|" + lastName + "|" + address;
   }
 }

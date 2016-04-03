@@ -6,6 +6,7 @@ package models;
 public class Client
 {
   public static final String HEADER = "client_id|name|address";
+  public static final String NAME = "clients.csv";
 
   private long clientId;
   private String name;
@@ -36,6 +37,6 @@ public class Client
   @Override
   public String toString()
   {
-    return "Client: " + name + " " + address + " (" + clientId + ")";
+    return clientId + "|" + name + "|" + address;
   }
 }

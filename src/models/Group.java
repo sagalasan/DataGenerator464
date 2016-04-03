@@ -6,6 +6,7 @@ package models;
 public class Group
 {
   public static final String HEADER = "name|description";
+  public static final String NAME = "groups.csv";
 
   private String name;
   private String description;
@@ -29,6 +30,6 @@ public class Group
   @Override
   public String toString()
   {
-    return "Group: " + name + ", " + description;
+    return name + "|" + description;
   }
 }
