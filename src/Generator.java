@@ -23,6 +23,11 @@ public class Generator
     items = CsvUtiltiy.readItems();
     categories = CsvUtiltiy.readCategories();
 
+    write();
+  }
+
+  public void write()
+  {
     CsvUtiltiy.writeCsv(clients, Client.NAME, Client.HEADER);
     CsvUtiltiy.writeCsv(employees, Employee.NAME, Employee.HEADER);
     CsvUtiltiy.writeCsv(groups, Group.NAME, Group.HEADER);
