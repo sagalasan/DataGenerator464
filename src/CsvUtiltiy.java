@@ -16,6 +16,11 @@ public class CsvUtiltiy
 {
   public static char DELIMETER = '|';
 
+  public static void refresh()
+  {
+
+  }
+
   public static List<Employee> readEmployees()
   {
     List<Employee> employees = new ArrayList<>();
