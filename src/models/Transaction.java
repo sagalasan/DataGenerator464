@@ -11,12 +11,12 @@ public class Transaction extends Model
   private Item item;
   private Client client;
   private Employee employee;
-  private long date;
+  private String date;
   private int quantity;
   private float price;
   private String orderType;
 
-  public Transaction(Item item, Client client, Employee employee, long date, int quantity, float price, String orderType)
+  public Transaction(Item item, Client client, Employee employee, String date, int quantity, float price, String orderType)
   {
     this.item = item;
     this.client = client;
@@ -42,7 +42,7 @@ public class Transaction extends Model
     return employee;
   }
 
-  public long getDate()
+  public String getDate()
   {
     return date;
   }

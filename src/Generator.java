@@ -10,18 +10,19 @@ import java.util.Random;
  */
 public class Generator
 {
+  Random random = new Random();
   private List<Model> clients;
   private List<Model> employees;
   private List<Model> groups;
   private List<Model> items;
   private List<Model> categories;
-
   private List<Model> updates;
   private List<Model> transactions;
 
-  private DateRules dateRules;
-
-  Random random = new Random();
+  public static void main(String[] args)
+  {
+    new Generator().generate();
+  }
 
   public void generate()
   {
@@ -36,16 +37,16 @@ public class Generator
     updates = new ArrayList<>();
     transactions = new ArrayList<>();
 
-    dateRules = new DateRules();
-
     generateUpdates();
+    generateTransactions();
 
     write();
   }
 
   private void generateUpdates()
   {
-    while(dateRules.nextDay())
+    DateRules dateRules = new DateRules();
+    while (dateRules.nextDay())
     {
 
       int numUpdate = random.nextInt(7);
@@ -55,14 +56,54 @@ public class Generator
         Employee employee = (Employee) employees.get(random.nextInt(employees.size()));
         String date = dateRules.getRandomDateTime();
         int change = random.nextInt(4) - 2;
-        if(change == 0) change = 1;
+        if (change == 0) change = 1;
         Update update = new Update(item, employee, date, change);
         updates.add(update);
       }
     }
   }
 
+  private void generateTransactions()
+  {
+    int numTransaction = random.nextInt(250);
+    for (int i = 0; i < items.size(); i++)
+    {
+      DateRules dateRules = new DateRules();
+      Item item = (Item) items.get(i);
+      while(dateRules.nextDay())
+      {
+        for(int j = 0; j < numTransaction; j++)
+        {
+          Employee employee = (Employee) employees.get(random.nextInt(employees.size()));
+          Client client = (Client) clients.get(random.nextInt(clients.size()));
+          String date = dateRules.getRandomDateTime();
+          int quantity = random.nextInt(1000);
+          float price = item.getPrice() * .8f + (random.nextFloat() * 4 - 2);
+          String orderType = "buy";
 
+          Transaction transaction = new Transaction(item, client, employee, date, quantity, price, orderType);
+          transactions.add(transaction);
+        }
+      }
+
+      dateRules = new DateRules();
+      while(dateRules.nextDay())
+      {
+        for(int j = 0; j < numTransaction; j++)
+        {
+          Employee employee = (Employee) employees.get(random.nextInt(employees.size()));
+          Client client = (Client) clients.get(random.nextInt(clients.size()));
+          String date = dateRules.getRandomDateTime();
+          int quantity = random.nextInt(100);
+          float price = item.getPrice() - (random.nextFloat() * 4);
+          String orderType = "sell";
+
+          Transaction transaction = new Transaction(item, client, employee, date, quantity, price, orderType);
+          transactions.add(transaction);
+        }
+      }
+    }
+  }
 
   private void write()
   {
@@ -73,10 +114,5 @@ public class Generator
     CsvUtiltiy.writeCsv(categories, Category.NAME, Category.HEADER);
     CsvUtiltiy.writeCsv(updates, Update.NAME, Update.HEADER);
     CsvUtiltiy.writeCsv(transactions, Transaction.NAME, Transaction.HEADER);
-  }
-
-  public static void main(String[] args)
-  {
-    new Generator().generate();
   }
 }
