@@ -5,22 +5,20 @@ package models;
  */
 public class Update extends Model
 {
-  public static final String HEADER = "item_id|employee_id|date|quantity_before|quantity_after";
+  public static final String HEADER = "item_id|employee_id|date|quantity_change";
   public static final String NAME = "updates.csv";
 
   private Item item;
   private Employee employee;
-  private long date;
-  private int before;
-  private int after;
+  private String date;
+  private int change;
 
-  public Update(Item item, Employee employee, long date, int before, int after)
+  public Update(Item item, Employee employee, String date, int change)
   {
     this.item = item;
     this.employee = employee;
     this.date = date;
-    this.before = before;
-    this.after = after;
+    this.change = change;
   }
 
   public Item getItem()
@@ -33,19 +31,14 @@ public class Update extends Model
     return employee;
   }
 
-  public long getDate()
+  public String getDate()
   {
     return date;
   }
 
-  public int getBefore()
+  public int getChange()
   {
-    return before;
-  }
-
-  public int getAfter()
-  {
-    return after;
+    return change;
   }
 
   @Override
@@ -66,9 +59,8 @@ public class Update extends Model
     String[] array = new String[5];
     array[0] = String.valueOf(item.getItemId());
     array[1] = String.valueOf(employee.getEmployeedId());
-    array[2] = String.valueOf(date);
-    array[3] = String.valueOf(before);
-    array[4] = String.valueOf(after);
+    array[2] = date;
+    array[3] = String.valueOf(change);
     return array;
   }
 }
